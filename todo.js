@@ -3,7 +3,7 @@ const todoList = [
 dueDate:'2025-05-30'},
 {name : 'college',
 dueDate:'2025-07-30'},
-{name:'boyfriend se baat',
+{name:'game',
 dueDate:'2025-05-22'}
 ];
 
