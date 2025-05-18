@@ -1,6 +1,6 @@
 import {cart} from '../data/cart.js';
 import {products} from '../data/products.js';
-import {formatCurrency} from './data/money.js';
+import {formatCurrency} from './utils/money.js';
 
 let cartSummaryHTML = '';
 
@@ -18,9 +18,9 @@ cart.forEach((cartItem) => {
 
   cartSummaryHTML +=`
   <div class="cart-item-container">
-            <div class="delivery-date">
-              Delivery date: Tuesday, June 21
-            </div>
+  <div class="delivery-date">
+  Delivery date: Tuesday, June 21
+        </div>
 
             <div class="cart-item-details-grid">
               <img class="product-image"
@@ -31,7 +31,7 @@ cart.forEach((cartItem) => {
                   Black and Gray Athletic Cotton Socks - 6 Pairs
                 </div>
                 <div class="product-price">
-                  $${formatCurrency(matchingProduct.priceCents / 100).toFixed(2)}
+                  $${formatCurrency(matchingProduct.priceCents )}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -53,7 +53,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-${product.id}">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
