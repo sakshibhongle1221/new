@@ -72,13 +72,13 @@ function updateCartQuantity(){
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
 }
+// call once here, so the cart icon shows the right number on page load
+updateCartQuantity();
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) =>{
-  button.addEventListener('click',()=> { const productID = button.dataset.productID;
-    addToCart(productID);
-    updateCartQuantity();
-
-    
+  button.addEventListener('click',()=> { const productId = button.dataset.productId;
+    addToCart(productId);
+    updateCartQuantity(); 
 
   });
     

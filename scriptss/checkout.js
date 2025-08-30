@@ -7,18 +7,19 @@ let cartSummaryHTML = '';
 
 cart.forEach((cartItem) => {
 
-  const productID = cartItem.productID;
+  const productId = cartItem.productId;
 
   let matchingProduct;
 
   products.forEach((product) => {
-    if (product.id === productID){
+    if (product.id === productId){
       matchingProduct = product;
     }
   });
 
   cartSummaryHTML +=`
-  <div class="cart-item-container">
+  <div class="cart-item-container 
+  js-cart-item-container-${matchingProduct.id}">
   <div class="delivery-date">
   Delivery date: Tuesday, June 21
         </div>
@@ -100,8 +101,19 @@ document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
 document.querySelectorAll('.js-delete-link').forEach((link)=> {
   link.addEventListener('click',()=>{
-    const productID = link.dataset.productID; 
-    removeFromCart(productID);
+    const productId = link.dataset.productId; 
+    removeFromCart(productId);
+
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+    if (container) {
+      container.remove();
+    } 
+    else {
+       console.error('Could not find the item container to remove.');
+    } 
+    
     
   });
 });
