@@ -1,4 +1,4 @@
-import {cart,removeFromCart} from '../data/cart.js';
+import {cart,removeFromCart,updateDeliveryOption} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -14,6 +14,8 @@ const today = dayjs();
 const deliveryDate = today.add(7,'days');
 deliveryDate.format('dddd, MMMM D');
 
+function renderOrderSummary(){
+
 let cartSummaryHTML = '';
 
 cart.forEach((cartItem) => {
@@ -22,6 +24,7 @@ cart.forEach((cartItem) => {
 
   let matchingProduct;
 
+  // products vale array me jayega and uske andar we have objects bht saree , uss ak particular product ke baree me jo bhi info hai usse ak object me store kiya hai ase bht sare hai so ussi ko hum product bollre hai yaha so jo productID hai usse ye ak product mese ak koi id match karegi usse hum matchingProduct me save karke rkhege.
   products.forEach((product) => {
     if (product.id === productId){
       matchingProduct = product;
@@ -47,7 +50,7 @@ cart.forEach((cartItem) => {
       'dddd,MMMM D'
     );
 
-  cartSummaryHTML +=`
+  cartSummaryHTML += `
   <div class="cart-item-container 
   js-cart-item-container-${matchingProduct.id}">
   <div class="delivery-date">
@@ -109,7 +112,10 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
     
     html +=
-      `<div class="delivery-option">
+      `<div class="delivery-option js-delivery-option"
+                data-product-id="${matchingProduct.id}"
+                data-delivery-option-id="${deliveryOption.id}"
+                  >
                   <input type="radio"
                   ${isChecked ? 'checked' : ' '}
                     class="delivery-option-input"
@@ -143,9 +149,18 @@ document.querySelectorAll('.js-delete-link').forEach((link)=> {
     } 
     else {
        console.error('Could not find the item container to remove.');
-    } 
-    
-    
+    }    
   });
 });
 
+document.querySelectorAll('.js-delivery-option').forEach((element)=>{
+  element.addEventListener('click',()=>{
+    const {productId,deliveryOptionId} = element.dataset;
+    updateDeliveryOption(productId,deliveryOptionId);
+    renderOrderSummary(); 
+  });
+});
+
+}
+
+renderOrderSummary();
