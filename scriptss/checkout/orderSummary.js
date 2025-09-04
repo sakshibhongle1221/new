@@ -1,18 +1,10 @@
 import {cart,removeFromCart,updateDeliveryOption} from '../../data/cart.js';
 import {getProduct,products} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
-
-import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
-
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-
 import {deliveryOptions,getDeliveryOption} from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
-hello();
-
-const today = dayjs();
-const deliveryDate = today.add(7,'days');
-deliveryDate.format('dddd, MMMM D');
 
 export function renderOrderSummary(){
 
@@ -142,6 +134,7 @@ document.querySelectorAll('.js-delete-link').forEach((link)=> {
     );
     if (container) {
       container.remove();
+      renderPaymentSummary();
     } 
     else {
        console.error('Could not find the item container to remove.');
@@ -153,7 +146,8 @@ document.querySelectorAll('.js-delivery-option').forEach((element)=>{
   element.addEventListener('click',()=>{
     const {productId,deliveryOptionId} = element.dataset;
     updateDeliveryOption(productId,deliveryOptionId);
-    renderOrderSummary(); 
+    renderOrderSummary();
+    renderPaymentSummary(); 
   });
 });
 
