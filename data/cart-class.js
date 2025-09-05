@@ -1,16 +1,16 @@
 class Cart{
   cartItems;
  //same as cartItems = undefined;
-  localStorageKey;
+  #localStorageKey;
 // here we have to name constructor as constructor only and also we should not return anything from this.
   constructor(localStorageKey){
-    this.localStorageKey = localStorageKey;
+    this.#localStorageKey = localStorageKey;
     
-    this.loadFromStorage();
+    this.#loadFromStorage();
   }
 
-  loadFromStorage(){
-  this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage(){
+  this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
   if(!this.cartItems){ 
   this.cartItems = 
@@ -33,7 +33,7 @@ class Cart{
 
 
   saveToStorage(){
-  localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+  localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
   }
 
 
