@@ -1,10 +1,16 @@
-function Cart(localStorageKey){
-const cart = {
-
-  cartItems: undefined,
+class Cart{
+  cartItems;
+ //same as cartItems = undefined;
+  localStorageKey;
+// here we have to name constructor as constructor only and also we should not return anything from this.
+  constructor(localStorageKey){
+    this.localStorageKey = localStorageKey;
+    
+    this.loadFromStorage();
+  }
 
   loadFromStorage(){
-  this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));
+  this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
 
   if(!this.cartItems){ 
   this.cartItems = 
@@ -22,11 +28,14 @@ const cart = {
   }
   ];
   }
-  },
+  }
+
+
 
   saveToStorage(){
-  localStorage.setItem(localStorageKey,JSON.stringify(this.cartItems));
-  },
+  localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+  }
+
 
 
   addToCart(productId){
@@ -47,10 +56,10 @@ const cart = {
     });
     }
     this.saveToStorage();
-    },
+  }
 
-    
-    removeFromCart(productId){
+
+  removeFromCart(productId){
     const newCart =[];
     this.cartItems.forEach((cartItem) => {
     if(cartItem.productId != productId){
@@ -59,10 +68,10 @@ const cart = {
     });
     this.cartItems = newCart;
     this.saveToStorage();
-    },
-    
-    
-    updateDeliveryOption(productId,deliveryOptionId){
+  }
+
+
+  updateDeliveryOption(productId,deliveryOptionId){
     let matchingItem;
     this.cartItems.forEach((cartItem) => {
       if(productId === cartItem.productId){
@@ -72,17 +81,22 @@ const cart = {
 
     matchingItem.deliveryOptionId = deliveryOptionId;
     this.saveToStorage();
+  }  
+    
 }
 
-};
 
-return cart;
-}
-
-const cart = Cart('cart-oop');
-const businessCart = Cart('cart-business');
+const cart = new Cart('cart-oop');
+const businessCart = new Cart('cart-business');
 
 
-cart.loadFromStorage();
+// instead of calling this setup code outside of the class  we will call this inside of the class (inside constructor)
 
-businessCart.loadFromStorage();
+// cart.localStorageKey = 'cart-oop';
+// businessCart.localStorageKey = //   'cart-business';
+
+// cart.loadFromStorage();
+// businessCart.loadFromStorage();
+
+console.log(cart);
+console.log(businessCart);
