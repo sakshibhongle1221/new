@@ -55,7 +55,7 @@ cart.forEach((cartItem) => {
                   Black and Gray Athletic Cotton Socks - 6 Pairs
                 </div>
                 <div class="product-price">
-                  ${matchingProduct.getPrice}
+                  ${matchingProduct.getPrice()}
                 </div>
                 <div class="product-quantity
                         js-product-quantity-${matchingProduct.id}">
