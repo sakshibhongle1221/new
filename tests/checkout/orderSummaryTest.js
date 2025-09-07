@@ -1,6 +1,6 @@
 import {renderOrderSummary} from '../../scriptss/checkout/orderSummary.js';
 import{loadFromStorage,cart} from '../../data/cart.js';
-import { loadProducts } from '../../data/products.js';
+import { loadProducts,loadProductsFetch } from '../../data/products.js';
 
 describe('test suite: renderOrderSummary',()=>{
 
@@ -9,10 +9,10 @@ describe('test suite: renderOrderSummary',()=>{
 
 
     beforeAll((done)=>{
-      loadProducts(()=>{
+      loadProductsFetch().then(()=>{
         done();
-      });     
-      //helps in first finishing and then moving further witth the code.
+        //helps in first finishing and then moving further witth the code.
+      });
     });
 
     beforeEach(()=>{
