@@ -17,7 +17,6 @@ async function loadPage(){
   }catch(error){
     console.log('unexpected error');
     }
-  
 
   renderOrderSummary();
   renderPaymentSummary();

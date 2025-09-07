@@ -70,10 +70,10 @@ export function loadProductsFetch(){
       return new Clothing(productDetails);
     }
     return new Product(productDetails);
-  }).catch((error)=>{
-    console.log('unexpected error');
   });
    
+  }).catch((error)=>{
+    console.log('unexpected error');
   });
   return promise;
 }
