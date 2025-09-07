@@ -6,15 +6,18 @@ import { loadCart } from "../data/cart.js";
 //this will run all the code inside this file without importing anything which is what we need in this situation.
 
 async function loadPage(){
-
-
-  await loadProductsFetch();
+  try{
+    await loadProductsFetch();
 
   await new Promise((resolve)=>{
     loadCart(()=>{
       resolve();
     });
   });
+  }catch(error){
+    console.log('unexpected error');
+    }
+  
 
   renderOrderSummary();
   renderPaymentSummary();
