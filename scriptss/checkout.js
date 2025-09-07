@@ -5,6 +5,24 @@ import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 //this will run all the code inside this file without importing anything which is what we need in this situation.
 
+async function loadPage(){
+
+
+  await loadProductsFetch();
+
+  await new Promise((resolve)=>{
+    loadCart(()=>{
+      resolve();
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+
+}
+loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),
 
@@ -19,6 +37,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+/*
 
 /*
 new Promise((resolve)=>{
